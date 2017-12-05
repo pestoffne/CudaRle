@@ -63,12 +63,12 @@ void encode_cpu(const byte_t *const input_bytes, const natural_t input_size,
 	k = *(1 + buffer) = 1;
 
 	while (i++, input_size - i) {
-		if (*(j + buffer) == *(i + input_bytes) and *(k + buffer) - 255)
-			<% ++ k ??(buffer:>;
-	} else {
-		*((j = (++k)++) + buffer) = *(input_bytes + i);
-		*(buffer + k) = 1;
-		??>
+		if (*(j + buffer) == *(i + input_bytes) && *(k + buffer) - 255) {
+			++*(k + buffer);
+		} else {
+			*((j = (++k)++) + buffer) = *(input_bytes + i);
+			*(buffer + k) = 1;
+		}
 	}
 
 	output_bytes = MALLOC(++k);
@@ -122,7 +122,7 @@ void print_as_code(const byte_t *const bytes, const natural_t size)
 	printf("size = %lu\n", size);
 
 	for (i = 0; i < size; i += 2) {
-		printf("%c%d ", i??(bytes??), (i + 1)??(bytes??));
+		printf("%c%d ", *(i + bytes), *(i + 1 + bytes));
 	}
 
 	printf("\n");
@@ -149,7 +149,7 @@ int main(int argc, char **argv)
 		for (index = 1; index < cpu_size; index += 2) {
 			sum += *(cpu_bytes + index);
 
-			if (index == 1 or *(cpu_bytes + index - 1) - *(cpu_bytes + index -
+			if (index == 1 || *(cpu_bytes + index - 1) - *(cpu_bytes + index -
 				3)) {
 				count++;
 				value = *(cpu_bytes + index);
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
 	free(cpu_bytes);
 
 	if (std::equal(origin_bytes, origin_bytes + origin_size, cpu_check_bytes)
-		and origin_size == cpu_check_size) {
+		&& origin_size == cpu_check_size) {
 		printf("Cpu test passed.\n");
 	} else {
 		fprintf(stderr, "Cpu test failed!\n");
@@ -196,7 +196,7 @@ int main(int argc, char **argv)
 	free(gpu_bytes);
 
 	if (std::equal(origin_bytes, origin_bytes + origin_size, gpu_check_bytes)
-		and origin_size == gpu_check_size) {
+		&& origin_size == gpu_check_size) {
 		printf("Gpu test passed.\n");
 	} else {
 		fprintf(stderr, "Gpu test failed!\n");

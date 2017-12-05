@@ -23,6 +23,7 @@ ipch/
 *.pdb
 *.sdf
 *.opensdf
+~*
 
 # C++ build objects
 *.o

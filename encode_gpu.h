@@ -7,7 +7,7 @@
 #define TIME_INTERVAL(b, e) (static_cast<float>((e) - (b)) / CLOCKS_PER_SEC)
 #define MALLOC (byte_t *)malloc
 
-#define MSVS 0
+#define MSVS 1
 
 #if MSVS
 #define EXIT \
