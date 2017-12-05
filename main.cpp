@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <fstream>
 #include <random>
 
@@ -55,26 +54,7 @@ byte_t *generate_bytes(const natural_t size, const double mean_sequence)
 void encode_cpu(const byte_t *const input_bytes, const natural_t input_size,
 				byte_t *&output_bytes, natural_t &output_size)
 {
-	natural_t i, j, k;
-	byte_t *buffer;
-
-	*(buffer = MALLOC(input_size * 2)) = *input_bytes;
-	i = j = 0;
-	k = *(1 + buffer) = 1;
-
-	while (i++, input_size - i) {
-		if (*(j + buffer) == *(i + input_bytes) && *(k + buffer) - 255) {
-			++*(k + buffer);
-		} else {
-			*((j = (++k)++) + buffer) = *(input_bytes + i);
-			*(buffer + k) = 1;
-		}
-	}
-
-	output_bytes = MALLOC(++k);
-	std::copy(buffer, buffer + k, output_bytes);
-	free(buffer);
-	output_size = k;
+	encode(input_bytes, input_size, output_bytes, output_size);
 }
 
 // Simple RLE decode using cpu
